@@ -9,7 +9,6 @@
 #include "UART_Config.h"
 #include "UART_Private.h"
 #include "UART_Interface.h"
-extern u8 UARTDATA;
 static void (*UART_RX_Fptr_SetCallBack) (void);
 static void (*UART_TX_Fptr_SetCallBack) (void);
 
@@ -142,8 +141,7 @@ void UART_TX_SetCallBack(void(*LocalFptr)(void))
 	UART_TX_Fptr_SetCallBack = LocalFptr;
 }
  ISR(INT_USART_RXC)
- {
-	 UARTDATA=UDR;
+{
 	 if (UART_RX_Fptr_SetCallBack!=NULLPTR)
 	 {
 		 UART_RX_Fptr_SetCallBack();
